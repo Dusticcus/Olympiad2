@@ -13,7 +13,7 @@ app.use(cors())
 
 const io = require('socket.io')(httpServer, {
   cors: {
-    origins: ['http://localhost:3000/'],
+    origins: [window.location.origin||'http://localhost:3000/'],
   },
 });
 
