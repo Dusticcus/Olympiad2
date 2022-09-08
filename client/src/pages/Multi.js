@@ -33,14 +33,14 @@ let q = [];
 let answerOptions = [];
 // CORRECT ANSWER TO COMPARE CHOICE TO
 let correct = [];
-let firstQuestion = 0;
+
 function getQuestion() {
-  firstQuestion++;
+
   // GET RANDOM NUMBER
   // let randomQuestion = Math.floor(Math.random() * 5);
   // console.log('random' + randomQuestion);
   // USE RANDOM NUMBER TO SELECT QUESTION FROM ARRAY
-  let qa = qArray[firstQuestion];
+  let qa = qArray[1];
   answerOptions = [];
 
   // console.log(qa);
@@ -89,14 +89,20 @@ function shuffle(array) {
   return array;
 }
 // ============================================================================
-
+getQuestion();
 let myPlayer;
 
 // SOCKET IO
 // IF NO ROOM, GENERATE A ROOM NAME AND CONNECT - OTHERWISE USE PROVIDED ROOM IN URL
 const room = getQueryParameter('room') || getRandomString(5);
 // CONNECT TO ROOM WITHIN URL
-let socket = io(`localhost:3002/?room=${room}`);
+// let socket = io(`localhost:3001/?room=${room}`);
+
+// client-side
+// const io = require("socket.io-client");
+const socket = io(`https://olympiad-socket-testing.herokuapp.com/?room=${room}` || `localhost:3000/?room=${room}`, {
+
+});
 if (window.location.href.indexOf('multiplayer') === -1) {
   window.history.replaceState(
     {},
@@ -170,34 +176,34 @@ const Multi = () => {
 
   // AUTHORIZATION
   // +++++++++++++++++++++++++++++++++++++++++++++++++++
-  const { profileId } = useParams();
-  const { loading, data } = useQuery(
-    profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
-    {
-      variables: { profileId: profileId },
-    }
-  );
+  // const { profileId } = useParams();
+  // const { loading, data } = useQuery(
+  //   profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
+  //   {
+  //     variables: { profileId: profileId },
+  //   }
+  // );
 
-  const profile = data?.me || data?.profile || {};
+  // const profile = data?.me || data?.profile || {};
 
-  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
-    return <Navigate to='/multiplayer' />;
-  }
+  // if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
+  //   return <Navigate to='/multiplayer' />;
+  // }
 
-  if (loading) {
-    return <div className='loading'>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div className='loading'>Loading...</div>;
+  // }
 
-  if (!profile?.name) {
-    return (
-      <div>
-        <h4 className='text-center myMessage'>
-          Please <Link to='/'>login</Link> or <Link to='/'>signup</Link> to play
-          the game.
-        </h4>
-      </div>
-    );
-  }
+  // if (!profile?.name) {
+  //   return (
+  //     <div>
+  //       <h4 className='text-center myMessage'>
+  //         Please <Link to='/'>login</Link> or <Link to='/'>signup</Link> to play
+  //         the game.
+  //       </h4>
+  //     </div>
+  //   );
+  // }
   // +++++++++++++++++++++++++++++++++++++++++++++++++++
 
   // HANDLE ANSWER OPTIONS WHEN CLICKED ================
@@ -268,8 +274,8 @@ const Multi = () => {
       <div className='row text-center'>
         <div className='col-sm-12 col-md-3 col-lg-3'>
           <h2 className='btn btn-block myMultiUser'>
-            {profileId ? `${profile.name}'s` : ' '}
-            {profile.name}
+            {/* {profileId ? `${profile.name}'s` : ' '}
+            {profile.name} */}
           </h2>
           <div className=' ml-4 mr-4 p-3 shadow mb-1 bg-white text-center myCard'>
             <div className='question-section'>
