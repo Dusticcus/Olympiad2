@@ -100,7 +100,8 @@ const room = getQueryParameter('room') || getRandomString(5);
 
 // client-side
 // const io = require("socket.io-client");
-const socket = io(`https://olympiad-socket-testing.herokuapp.com/?room=${room}` || `localhost:3000/?room=${room}`, {
+const liveURL = `https://olympiad-socket-testing.herokuapp.com/?room=${room}`
+const socket = io(`localhost:3000/?room=${room}` || liveURL, {
 
 });
 if (window.location.href.indexOf('multiplayer') === -1) {
