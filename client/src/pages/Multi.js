@@ -67,7 +67,7 @@ function getQuestion() {
   // console.log(answerOptions);
   // console.log(q);
 }
-
+getQuestion()
 // FUNCTION TO SHUFFLE THE ARRAY AFTER GIVING IT THE INCORRECT AND CORRECT ANSWERS
 function shuffle(array) {
   let currentIndex = array.length,
@@ -89,7 +89,7 @@ function shuffle(array) {
   return array;
 }
 // ============================================================================
-getQuestion();
+
 let myPlayer;
 
 // SOCKET IO
@@ -100,9 +100,8 @@ const room = getQueryParameter('room') || getRandomString(5);
 
 // client-side
 // const io = require("socket.io-client");
-const liveURL = `https://olympiad-socket-testing.herokuapp.com/?room=${room}`
-const socket = io("https://olympiad-socket-testing.herokuapp.com/", {
-
+const socket = io(`localhost:3000/?room=${room}`, {
+  withCredentials: true,
 });
 if (window.location.href.indexOf('multiplayer') === -1) {
   window.history.replaceState(
