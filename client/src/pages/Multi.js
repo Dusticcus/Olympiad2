@@ -100,7 +100,7 @@ const room = getQueryParameter('room') || getRandomString(5);
 
 // client-side
 // const io = require("socket.io-client");
-const socket = io(process.env.URL || `localhost:3000/?room=${room}`, {
+const socket = io(process.env.URL + `?room=${room}`, {
   withCredentials: true,
 });
 if (window.location.href.indexOf('multiplayer') === -1) {
